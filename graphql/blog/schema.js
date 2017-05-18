@@ -31,7 +31,10 @@ let schema = new GraphQLSchema({
                         type: new GraphQLNonNull(GraphQLID)
                     }
                 },
+                // resolve method it seems info must be the 4th args in new versions (ctx).
                 resolve (root, params, ctx, options) {
+                    // options.fieldASTs[0] fieldAsTs naming convention has been changed to fieldNodes
+                    // https://github.com/graphql/graphql-js/issues/473
                     const projection = getProjection(options.fieldNodes[0]);
 
                     return BlogPostModel
