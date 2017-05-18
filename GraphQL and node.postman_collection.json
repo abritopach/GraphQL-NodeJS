@@ -1,0 +1,191 @@
+{
+	"variables": [],
+	"info": {
+		"name": "GraphQL and node",
+		"_postman_id": "ec25bbe2-a0d6-e166-5b93-a9d316db6457",
+		"description": "",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Mutation: Add blog post",
+			"request": {
+				"url": "http://localhost:3000/graphql",
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"query\": \"mutation ($data: BlogPostInput!) { addBlogPost(data: $data) }\",\n    \"variables\": {\n        \"data\": {\n            \"_id\": \"569e72a7ebd14d53eccef867\",\n            \"title\": \"First post\",\n            \"description\": \"My first post on my blog\"\n        }\n    }\n}"
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "Mutation: Add blog post 2",
+			"request": {
+				"url": "http://localhost:3000/graphql",
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"query\": \"mutation ($data: BlogPostInput!) { addBlogPost(data: $data) }\",\n    \"variables\": {\n        \"data\": {\n            \"_id\": \"569e737bebd14d53eccef868\",\n            \"title\": \"Second post\",\n            \"description\": \"My second post on my blog\"\n        }\n    }\n}"
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "Query: Get all blog posts (with title only)",
+			"request": {
+				"url": "http://localhost:3000/graphql",
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"query\": \"query { blogPosts { title } }\"\n}"
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "Query: Get all blog posts all fields",
+			"request": {
+				"url": "http://localhost:3000/graphql",
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"query\": \"query { blogPosts { _id, title, description } }\"\n}"
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "Query: Get first blog post",
+			"request": {
+				"url": "http://localhost:3000/graphql",
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"query\": \"query ($id: ID!) { blogPost(id: $id) {title, description} }\",\n    \"variables\": {\n        \"id\": \"569e72a7ebd14d53eccef867\"\n    }\n}"
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "Mutation: Add blog post 3 and add comment to post 2",
+			"request": {
+				"url": "http://localhost:3000/graphql",
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"query\": \"mutation ($data: BlogPostInput!, $commentData: CommentInput!) { addBlogPost(data: $data) addComment(data: $commentData) }\",\n    \"variables\": {\n        \"data\": {\n            \"_id\": \"569e75fdebd14d53eccef869\",\n            \"title\": \"Third post\",\n            \"description\": \"My third post on my blog\"\n        },\n        \"commentData\": {\n            \"_id\": \"569e7603ebd14d53eccef86a\",\n            \"postId\": \"569e737bebd14d53eccef868\",\n            \"text\": \"Comment on the second blog post\"\n        }\n    }\n}"
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "Query: Get all comments for second post",
+			"request": {
+				"url": "http://localhost:3000/graphql",
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"query\": \"query ($id: ID!) { comments(postId: $id) {text} }\",\n    \"variables\": {\n        \"id\": \"569e737bebd14d53eccef868\"\n    }\n}"
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "Mutation: Remove all blog posts and comments",
+			"request": {
+				"url": "http://localhost:3000/graphql",
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"query\": \"mutation { removeAllBlogPosts removeAllComments }\"\n}"
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "Mutation: Remove all comments",
+			"request": {
+				"url": "http://localhost:3000/graphql",
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"query\": \"mutation { removeAllBlogPosts removeAllComments }\"\n}"
+				},
+				"description": ""
+			},
+			"response": []
+		}
+	]
+}
