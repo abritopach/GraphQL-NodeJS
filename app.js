@@ -11,9 +11,6 @@ var env = 'development', configDB = require('./config/db')[env]; // Get db confi
 
 var app = express();
 
-// parse POST body as text
-//app.use(bodyParser.text({ type: 'application/graphql' }));
-
 // GraphqQL server route
 app.use('/graphql', graphqlHTTP(req => ({
   //schema: pokemonSchema,
@@ -22,17 +19,14 @@ app.use('/graphql', graphqlHTTP(req => ({
   graphiql: true
 })));
 
-// Connect mongo database
-//mongoose.connect('mongodb://localhost/graphql');
-
 // MongoDB connection.
-//mongoose.connect(configDB.url);
+
 mongoose.connect(configDB.url, function (error) {
   if (error) console.error(error);
   else console.log('Mongo connected.');
 });
 
-// start server
+// Start server.
 var server = app.listen(3000, () => {
   console.log('Listening at port', server.address().port);
 });
