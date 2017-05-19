@@ -1,13 +1,14 @@
 import express from 'express';
 import graphqlHTTP from 'express-graphql';
-import mongoose from 'mongoose';
+
+import { serverConfig } from './config/config'
 
 import pokemonSchema from './graphql/pokemon/schema';
 
 import blogSchema from './graphql/blog/schema';
 
-var env = 'development', configDB = require('./config/db')[env]; // Get db config file.
-//var env = 'production', configDB = require('./config/db')[env]; // Get db config file.
+// MongoDB connection.
+import {} from './database';
 
 var app = express();
 
@@ -19,14 +20,7 @@ app.use('/graphql', graphqlHTTP(req => ({
   graphiql: true
 })));
 
-// MongoDB connection.
-
-mongoose.connect(configDB.url, function (error) {
-  if (error) console.error(error);
-  else console.log('Mongo connected.');
-});
-
 // Start server.
-var server = app.listen(3000, () => {
+var server = app.listen(serverConfig.port, () => {
   console.log('Listening at port', server.address().port);
 });
