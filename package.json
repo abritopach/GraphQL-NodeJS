@@ -8,7 +8,8 @@
     "url": "https://github.com/abritopach/graphql-nodejs"
   },
   "scripts": {
-    "start": "node index.js"
+    "start": "node index.js",
+    "seed": "node ./seed/index.js"
   },
   "author": "Adrián Brito Pacheco",
   "dependencies": {

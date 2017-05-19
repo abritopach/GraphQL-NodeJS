@@ -1,13 +1,19 @@
 import mongoose from 'mongoose';
 
-var env = 'development', configDB = require('./config/db')[env]; // Get db config file.
-//var env = 'production', configDB = require('./config/db')[env]; // Get db config file.
+var env = 'development';
+//var env = 'production';
+
+import { databaseConfig } from '../config/config'
+
+import User from '../models/pokemon/user';
 
 // MongoDB connection.
-mongoose.connect(configDB.url, function (error) {
+mongoose.Promise = global.Promise;
+mongoose.connect(databaseConfig[env].url, function (error) {
     if (error) console.error(error);
     else console.log('Mongo connected.');
 });
+
 
 // Seed users.
 
@@ -15,14 +21,14 @@ var users = [
 
     {
         "name" : "Ana",
-        "created" : ISODate("2017-05-16T09:05:30.747Z"),
+        "created" : Date.now(),
         "caught" : [
             "Snorlax"
         ]
     },
     {
         "name" : "Paco",
-        "created" : ISODate("2017-05-18T09:45:44.353Z"),
+        "created" : Date.now(),
         "caught" : [
             "Bulbasur",
             "Raticate"
@@ -30,7 +36,7 @@ var users = [
     },
     {
         "name" : "Juan",
-        "created" : ISODate("2017-05-18T09:49:18.124Z"),
+        "created" : Date.now(),
         "caught" : [
             "Pikachu",
             "Raticate",
@@ -42,7 +48,13 @@ var users = [
 
 // Drop users collection.
 
-mongoose.connection.collections['users'].drop( function(err) {
+User.remove({}, function(err, result) {
+    if (err) {
+        console.log("Collection couldn't be removed" + err);
+        return;
+    }
+
+    console.log("Collection removed.");
 
     User.create(users, function(err, res){
 
